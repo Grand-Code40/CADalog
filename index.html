@@ -13,11 +13,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261029-3">
+  <link rel="stylesheet" href="./styles.css?v=20261029-4">
   <script defer src="./data.js"></script>
-  <script defer src="./directory.js"></script>
-  <script defer src="./locales.js"></script>
-  <script defer src="./app.js"></script>
+  <script defer src="./directory.js?v=20261029-4"></script>
+  <script defer src="./locales.js?v=20261029-4"></script>
+  <script defer src="./app.js?v=20261029-4"></script>
 </head>
 <body>
   <a class="skip-link" href="#main"><span data-i18n="skip">Перейти к содержимому</span></a>
@@ -26,7 +26,7 @@
       <a class="wordmark" href="./" aria-label="CADalog — главная" data-i18n-aria="home">CAD<span>alog</span></a>
       <nav aria-label="Основная навигация" data-i18n-aria="navigation">
         <a href="./#directory" data-directory-link><span data-i18n="navDirectory">Каталог</span></a>
-        <a href="./#about"><span data-i18n="navAbout">О каталоге</span></a>
+        <a href="./?page=sources" data-sources-link><span data-i18n="navAbout">О каталоге</span></a>
       </nav>
       <a id="language-switch" class="language-switch" href="./?lang=en" lang="en" hreflang="en" aria-label="Switch to English">EN</a>
     </div>
@@ -45,8 +45,8 @@
           <label class="search-field" for="search-input"><span><span data-i18n="search">Поиск</span></span><span class="search-control"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input id="search-input" name="q" type="search" placeholder="Компания, услуга или формат" data-i18n-placeholder="searchPlaceholder" autocomplete="off"></span></label>
           <label for="service-select"><span><span data-i18n="service">Услуга</span></span><select id="service-select" name="service"><option value="" data-i18n="allServices">Все услуги</option><option value="Raster to vector" data-label="Raster to vector">Растр в вектор</option><option value="PDF to CAD" data-label="PDF to CAD">PDF в CAD</option><option value="Paper &amp; sketch" data-label="Paper &amp; sketch">Бумага и эскизы</option><option value="Drawing digitization" data-label="Drawing digitization">Оцифровка чертежей</option></select></label>
         </form>
-        <fieldset class="tag-filters"><legend data-i18n="filterTags">Теги</legend><div id="tag-controls" class="tag-controls"></div><p data-i18n="tagHint">Можно выбрать несколько — покажем компании со всеми выбранными тегами.</p></fieldset>
-        <div class="directory-toolbar"><div class="results-summary"><p id="result-count" role="status" aria-live="polite" aria-atomic="true"><span data-i18n="initialCount">12 компаний</span></p><button id="clear-filters" type="button" hidden><span data-i18n="clearFilters">Сбросить фильтры</span></button></div><label class="sort-control" for="sort-select"><span data-i18n="sort">Порядок</span> <select id="sort-select"><option value="name" data-i18n="sortAsc">А — Я</option><option value="reverse" data-i18n="sortDesc">Я — А</option></select></label></div>
+        <fieldset class="tag-filters"><legend data-i18n="filterTags">Теги</legend><div id="tag-controls" class="tag-controls"></div></fieldset>
+        <div class="directory-toolbar"><div class="results-summary"><p id="result-count" role="status" aria-live="polite" aria-atomic="true"><span data-i18n="initialCount">12 компаний</span></p><button id="clear-filters" type="button" hidden><span data-i18n="clearFilters">Сбросить фильтры</span></button></div></div>
         <div id="results" class="company-grid"></div>
         <div id="empty-state" class="empty-state" hidden><h3 id="empty-title"><span data-i18n="noMatches">Компании не найдены</span></h3><p id="empty-description"><span data-i18n="noMatchesHint">Попробуйте другой запрос или уберите один из фильтров.</span></p><button id="empty-reset" type="button" class="button-secondary"><span data-i18n="clearFilters">Сбросить фильтры</span></button></div>
       </section>
@@ -56,7 +56,6 @@
         <div>
           <h2 id="about-heading"><span data-i18n="about">О каталоге</span></h2>
           <p><span data-i18n="aboutBody">CADalog собирает исполнителей, которые занимаются оцифровкой и переводом чертежей в CAD. В каждой карточке — описание услуг и ссылка на первоисточник.</span></p>
-          <p><span data-i18n="aboutLimits">Сведения собраны по открытым материалам компаний. Уточняйте состав работ, сроки и условия непосредственно у исполнителя.</span></p>
         </div>
         <div>
           <h2><span data-i18n="quoteHeading">Что подготовить для расчёта стоимости</span></h2>
@@ -69,8 +68,26 @@
 
     <section class="profile-view shell" id="profile-view" hidden aria-labelledby="profile-title"><a class="back-link" href="./#directory" data-directory-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"></path></svg> <span data-i18n="back">К списку компаний</span></a><div id="profile-content"></div></section>
 
+    <section class="sources-view shell" id="sources-view" hidden aria-labelledby="sources-title">
+      <a class="back-link" href="./#directory" data-directory-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"></path></svg><span data-i18n="back">К списку компаний</span></a>
+      <header class="information-heading"><h1 id="sources-title" data-i18n="footerSources">Источники и принципы каталога</h1><p data-i18n="sourcesIntro">Здесь собраны ссылки на страницы услуг, указанные в карточках компаний. По ним можно проверить описание и связаться с исполнителем.</p></header>
+      <div class="sources-layout">
+        <section aria-labelledby="sources-principles-title"><h2 id="sources-principles-title" data-i18n="sourcesPrinciplesHeading">Принципы каталога</h2><ul class="principles-list"><li data-i18n="sourcesPrinciple1">CADalog — независимый список исполнителей, а не рейтинг и не гарантия качества их работы.</li><li data-i18n="sourcesPrinciple2">Компании расположены по алфавиту. Описания помогают сравнить услуги, а ссылки ведут к их подробному описанию.</li><li data-i18n="sourcesPrinciple3">Состав работ, стоимость, сроки и требования к файлам согласуйте непосредственно с исполнителем.</li></ul><a href="#suggest" class="suggest-link" data-i18n="suggestHeading">Предложить компанию</a></section>
+        <section aria-labelledby="sources-list-title"><h2 id="sources-list-title" data-i18n="sourcesListHeading">Страницы услуг компаний</h2><ul id="sources-list" class="sources-list"></ul></section>
+      </div>
+    </section>
+
+    <section class="suggest shell" id="suggest" aria-labelledby="suggest-title">
+      <div><h2 id="suggest-title" data-i18n="suggestHeading">Предложить компанию</h2><p data-i18n="suggestBody">Знаете исполнителя по переводу чертежей в CAD? Подготовьте короткую заявку по шаблону.</p><p class="form-note" id="suggestion-availability" data-i18n="suggestUnavailable">Отправка заявок пока не подключена. Этот блок только помогает составить и скопировать текст — он ничего не отправляет.</p></div>
+      <div class="suggest-editor"><label for="suggestion-draft" data-i18n="suggestDraftLabel">Текст заявки</label><textarea id="suggestion-draft" rows="7" aria-describedby="suggestion-availability" data-i18n="suggestTemplate">Компания:
+Сайт компании:
+Услуги перевода чертежей в CAD:
+Ссылка на описание услуг:
+Комментарий:</textarea><div class="suggest-actions"><button id="copy-suggestion" type="button" class="button-secondary" disabled data-i18n="suggestCopy">Скопировать текст заявки</button><p id="suggestion-status" role="status" aria-live="polite" aria-atomic="true"></p></div><noscript><p class="form-note">Выделите и скопируйте текст вручную. / Select and copy the text manually.</p></noscript></div>
+    </section>
+
     <noscript><section class="shell no-script"><h2><span data-i18n="noScriptHeading">Перейти на сайты компаний</span></h2><p><span data-i18n="noScriptBody">Для поиска, фильтров и карточек нужен JavaScript. Сайты исполнителей доступны по прямым ссылкам:</span></p><ul><li><a href="https://www.cadcam.org/">CAD/CAM Services</a></li><li><a href="https://www.convert2cad.com/">Convert2CAD</a></li><li><a href="https://www.designpresentation.com/">Design Presentation</a></li><li><a href="https://globalcadservices.com/">Global CAD Services</a></li><li><a href="https://www.gsourcedata.com/">Gsource Technologies</a></li><li><a href="https://moravamodern.com/">Morava Modern</a></li><li><a href="https://www.powerkh.com/">Powerkh</a></li><li><a href="https://drawings.3dpraxisstudio.com/">Praxis Drawings</a></li><li><a href="https://rastertechllc.com/">RasterTech</a></li><li><a href="https://surveysmaps.com/">SurveysMaps</a></li><li><a href="https://truetechcad.com/">TrueTechCAD</a></li><li><a href="https://www.urcadservices.com/">UR CAD Services</a></li></ul></section></noscript>
   </main>
-  <footer class="site-footer shell"><p>CADalog <span><span data-i18n="footerText">Независимый каталог услуг по переводу чертежей в CAD.</span></span></p><a href="#about" data-i18n="footerSources">Источники и принципы каталога</a></footer>
+  <footer class="site-footer shell"><p>CADalog <span><span data-i18n="footerText">Независимый каталог услуг по переводу чертежей в CAD.</span></span></p><a href="./?page=sources" data-sources-link data-i18n="footerSources">Источники и принципы каталога</a></footer>
 </body>
 </html>

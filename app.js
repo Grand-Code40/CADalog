@@ -11,7 +11,10 @@
   const companies = directory.localizeCompanies(window.CADALOG_COMPANIES || [], window.CADALOG_LOCALES, lang);
   const external = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"></path></svg>';
   const homeUrl = lang === 'en' ? './?lang=en' : './';
-  const isProfile = new URLSearchParams(location.search).has('company');
+  const route = new URLSearchParams(location.search);
+  const isSources = route.get('page') === 'sources';
+  const isProfile = !isSources && route.has('company');
+  const filterTags = directory.tags.filter(tag => ['Architecture', 'Engineering', 'Survey & civil', 'Multi-disciplinary'].includes(tag));
   const domain = url => new URL(url).hostname.replace(/^www\./, '');
 
   document.documentElement.lang = lang;
@@ -24,8 +27,6 @@
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = copy[el.dataset.i18nPlaceholder]; });
   document.querySelectorAll('[data-label]').forEach(el => { el.textContent = label(el.dataset.label); });
   $('.wordmark').href = homeUrl;
-  $('.header-inner nav a[href$="#about"]').href = homeUrl + '#about';
-  $('.site-footer > a').href = homeUrl + '#about';
 
   function externalLink(url, text, className = '') {
     return '<a class="' + className + '" href="' + safe(url) + '" target="_blank" rel="noopener noreferrer">' + safe(text) + external + '<span class="sr-only"> ' + copy.newTab + '</span></a>';
@@ -42,7 +43,7 @@
     });
   }
   function tagHTML(company) {
-    return '<ul class="company-tags" aria-label="' + copy.tags + '">' + company.tags.map(tag => '<li><a href="' + safe(directory.directoryUrl({...state,tags:[tag]})) + '" data-tag="' + safe(tag) + '" aria-label="' + safe(copy.filterByTag.replace('{tag}', label(tag))) + '">' + safe(label(tag)) + '</a></li>').join('') + '</ul>';
+    return '<ul class="company-tags" aria-label="' + copy.tags + '">' + company.tags.filter(tag => filterTags.includes(tag)).map(tag => '<li><a href="' + safe(directory.directoryUrl({...state,tags:[tag]})) + '" data-tag="' + safe(tag) + '" aria-label="' + safe(copy.filterByTag.replace('{tag}', label(tag))) + '">' + safe(label(tag)) + '</a></li>').join('') + '</ul>';
   }
   function noteHTML(company) {
     return company.notice ? '<p class="company-notice">' + safe(copy[company.notice]) + '</p>' : '';
@@ -56,8 +57,13 @@
   function updateNavigation() {
     document.querySelectorAll('[data-directory-link]').forEach(link => { link.href = directory.directoryUrl(state); });
     const params = new URLSearchParams(directory.stateQuery(state));
-    const company = new URLSearchParams(location.search).get('company');
-    if (company !== null) params.set('company',company);
+    params.set('page', 'sources');
+    document.querySelectorAll('[data-sources-link]').forEach(link => {
+      link.href = './?' + params.toString();
+      if (isSources) link.setAttribute('aria-current', 'page');
+    });
+    if (!isSources) params.delete('page');
+    if (isProfile) params.set('company',route.get('company'));
     if (lang === 'ru') params.set('lang','en'); else params.delete('lang');
     const toggle = $('#language-switch');
     toggle.href = './' + (params.size ? '?' + params.toString() : '') + location.hash;
@@ -76,11 +82,11 @@
     return number + ' ' + (mod100 >= 11 && mod100 <= 14 ? 'компаний' : mod10 === 1 ? 'компания' : mod10 >= 2 && mod10 <= 4 ? 'компании' : 'компаний');
   }
   function initDirectory() {
-    const search = $('#search-input'), service = $('#service-select'), sort = $('#sort-select'), results = $('#results');
-    $('#tag-controls').innerHTML = directory.tags.map(tag => '<label class="tag-option"><input type="checkbox" name="tag" value="' + safe(tag) + '"><span>' + safe(label(tag)) + '</span></label>').join('');
+    const search = $('#search-input'), service = $('#service-select'), results = $('#results');
+    $('#tag-controls').innerHTML = filterTags.map(tag => '<label class="tag-option"><input type="checkbox" name="tag" value="' + safe(tag) + '"><span>' + safe(label(tag)) + '</span></label>').join('');
     const tagInputs = [...document.querySelectorAll('#tag-controls input')];
     function syncControls() {
-      search.value = state.query; service.value = state.service; sort.value = state.sort;
+      search.value = state.query; service.value = state.service;
       tagInputs.forEach(input => { input.checked = state.tags.includes(input.value); });
     }
     function render() {
@@ -88,7 +94,7 @@
       results.innerHTML = matches.map(listingHTML).join('');
       results.hidden = !matches.length; $('#empty-state').hidden = Boolean(matches.length);
       $('#result-count').textContent = companyCount(matches.length) + (matches.length !== companies.length ? ' ' + copy.of + ' ' + companies.length : '');
-      $('#clear-filters').hidden = !(state.query.trim() || state.service || state.tags.length || state.sort !== 'name');
+      $('#clear-filters').hidden = !(state.query.trim() || state.service || state.tags.length);
       initImageFallbacks(results); updateNavigation();
     }
     function clearFilters() {
@@ -96,11 +102,11 @@
       syncControls(); render(); updateURL(); search.focus({preventScroll:true});
     }
     function readControls() {
-      state = {...state,query:search.value,service:service.value,sort:sort.value,tags:tagInputs.filter(input=>input.checked).map(input=>input.value)};
+      state = {...state,query:search.value,service:service.value,sort:'name',tags:tagInputs.filter(input=>input.checked).map(input=>input.value)};
       render(); updateURL();
     }
     $('#filters').addEventListener('submit',event=>{event.preventDefault();readControls();});
-    [search,service,sort,...tagInputs].forEach(control=>control.addEventListener(control===search?'input':'change',readControls));
+    [search,service,...tagInputs].forEach(control=>control.addEventListener(control===search?'input':'change',readControls));
     $('#clear-filters').addEventListener('click',clearFilters); $('#empty-reset').addEventListener('click',clearFilters);
     results.addEventListener('click',event=>{
       const link=event.target.closest('[data-tag]');
@@ -122,6 +128,46 @@
       '<div class="profile-layout"><div class="profile-main"><h2>'+copy.offer+'</h2><p>'+safe(company.detail)+'</p><p class="profile-source">'+copy.source+' '+externalLink(company.source,copy.sourceLink)+'</p>'+externalLink(company.website,copy.visitWebsite,'button-primary')+'</div><aside class="profile-facts" aria-label="'+copy.capabilities+'"><h2>'+copy.facts+'</h2><dl><div><dt>'+copy.services+'</dt><dd><ul>'+company.services.map(service=>'<li>'+safe(label(service))+'</li>').join('')+'</ul></dd></div><div><dt>'+copy.formatsLabel+'</dt><dd>'+company.formats.map(value=>safe(label(value))).join(' / ')+'</dd></div><div><dt>'+copy.officialWebsite+'</dt><dd><a href="'+safe(company.website)+'" target="_blank" rel="noopener noreferrer">'+safe(domain(company.website))+'</a></dd></div></dl><p class="form-note">'+copy.confirmDetails+'</p></aside></div><div class="profile-notice"><h2>'+copy.listingAbout+'</h2><p>'+copy.listingNotice+'</p></div><section class="related" aria-labelledby="related-heading"><h2 id="related-heading">'+copy.related+'</h2><ul>'+related.map(item=>'<li><a href="'+safe(directory.profileUrl(item.slug,state))+'">'+safe(item.name)+'</a></li>').join('')+'</ul></section>';
     initImageFallbacks();
   }
+  function initSources() {
+    $('#home-view').hidden = true;
+    $('#profile-view').hidden = true;
+    $('#sources-view').hidden = false;
+    document.title = copy.footerSources + ' — CADalog';
+    $('meta[name="description"]').content = copy.sourcesIntro;
+    $('meta[property="og:title"]').content = document.title;
+    $('meta[property="og:description"]').content = copy.sourcesIntro;
+    $('#sources-list').innerHTML = [...companies].sort((a, b) => a.name.localeCompare(b.name, 'en')).map(company =>
+      '<li><h3>' + safe(company.name) + '</h3>' + externalLink(company.source, copy.sourceLink) + noteHTML(company) + '</li>'
+    ).join('');
+  }
+  function initSuggestion() {
+    const draft = $('#suggestion-draft'), button = $('#copy-suggestion'), status = $('#suggestion-status');
+    draft.value = copy.suggestTemplate;
+    button.disabled = false;
+    draft.addEventListener('input', () => {
+      button.disabled = !draft.value.trim();
+      status.textContent = draft.value.trim() ? '' : copy.suggestEmpty;
+    });
+    button.addEventListener('click', async () => {
+      const text = draft.value;
+      if (!text.trim()) { status.textContent = copy.suggestEmpty; return; }
+      button.disabled = true;
+      button.textContent = copy.suggestCopying;
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+        await navigator.clipboard.writeText(text);
+        status.textContent = copy.suggestCopied;
+      } catch (_) {
+        draft.focus();
+        draft.select();
+        status.textContent = copy.suggestCopyFallback;
+      } finally {
+        button.disabled = !draft.value.trim();
+        button.textContent = copy.suggestCopy;
+      }
+    });
+  }
   updateNavigation();
-  if(isProfile)initProfile();else initDirectory();
+  if (isSources) initSources(); else if (isProfile) initProfile(); else initDirectory();
+  initSuggestion();
 })();
