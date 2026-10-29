@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f9faf9">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Найдите исполнителя для перевода бумажных чертежей, сканов, эскизов и PDF в CAD. Сравните услуги и свяжитесь с компаниями напрямую.">
   <meta property="og:title" content="CADalog — оцифровка чертежей и перевод в CAD">
   <meta property="og:description" content="Независимый каталог исполнителей: сравните услуги, выберите теги и изучите первоисточники.">
@@ -40,7 +40,7 @@
       </section>
 
       <section class="directory shell" id="directory" aria-labelledby="directory-title">
-        <h2 id="directory-title"><span data-i18n="findCompany">Найти компанию</span></h2>
+        <h2 id="directory-title" class="sr-only"><span data-i18n="findCompany">Найти компанию</span></h2>
         <form id="filters" class="filter-form" role="search" aria-label="Поиск исполнителя перевода чертежей в CAD" data-i18n-aria="searchAria">
           <label class="search-field" for="search-input"><span><span data-i18n="search">Поиск</span></span><span class="search-control"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input id="search-input" name="q" type="search" placeholder="Компания, услуга или формат" data-i18n-placeholder="searchPlaceholder" autocomplete="off"></span></label>
           <label for="service-select"><span><span data-i18n="service">Услуга</span></span><select id="service-select" name="service"><option value="" data-i18n="allServices">Все услуги</option><option value="Raster to vector" data-label="Raster to vector">Растр в вектор</option><option value="PDF to CAD" data-label="PDF to CAD">PDF в CAD</option><option value="Paper &amp; sketch" data-label="Paper &amp; sketch">Бумага и эскизы</option><option value="Drawing digitization" data-label="Drawing digitization">Оцифровка чертежей</option></select></label>
@@ -49,7 +49,6 @@
         <div class="directory-toolbar"><div class="results-summary"><p id="result-count" role="status" aria-live="polite" aria-atomic="true"><span data-i18n="initialCount">12 компаний</span></p><button id="clear-filters" type="button" hidden><span data-i18n="clearFilters">Сбросить фильтры</span></button></div><label class="sort-control" for="sort-select"><span data-i18n="sort">Порядок</span> <select id="sort-select"><option value="name" data-i18n="sortAsc">А — Я</option><option value="reverse" data-i18n="sortDesc">Я — А</option></select></label></div>
         <div id="results" class="company-grid"></div>
         <div id="empty-state" class="empty-state" hidden><h3 id="empty-title"><span data-i18n="noMatches">Компании не найдены</span></h3><p id="empty-description"><span data-i18n="noMatchesHint">Попробуйте другой запрос или уберите один из фильтров.</span></p><button id="empty-reset" type="button" class="button-secondary"><span data-i18n="clearFilters">Сбросить фильтры</span></button></div>
-        <p class="directory-note"><span data-i18n="directoryNote">Сведения по открытым материалам компаний. Уточняйте условия у исполнителя.</span> <a href="#about"><span data-i18n="howItWorks">Как устроен каталог</span></a></p>
       </section>
 
 <section class="guide shell" id="guide" aria-labelledby="guide-title"><h2 id="guide-title" data-i18n="guideHeading">Как выбрать услугу</h2><div><details><summary data-i18n="guide1Title">PDF в CAD: редактируемый файл или вложенная картинка?</summary><p data-i18n="guide1Body">Уточните, что получите линии, размеры и текст, которые можно редактировать в CAD, а не только изображение внутри DWG. Перед большим заказом попросите пример результата на одном листе.</p></details><details><summary data-i18n="guide2Title">Скан и эскиз: что нужно для точного масштаба?</summary><p data-i18n="guide2Body">Подготовьте читаемый исходник и хотя бы один подтверждённый размер. Заранее согласуйте, как исполнитель отметит неясные размеры и недостающие фрагменты — их не следует молча додумывать.</p></details><details><summary data-i18n="guide3Title">Что должно быть в результате?</summary><p data-i18n="guide3Body">Укажите формат и версию CAD, единицы измерения, структуру слоёв и требования к тексту. Для проверки удобно получить PDF вместе с редактируемым файлом. Состав выдачи и число правок согласуйте до начала работ.</p></details></div></section>

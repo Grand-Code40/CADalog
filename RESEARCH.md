@@ -27,3 +27,11 @@ Read 29 October 2026. These sources inform choices; they do not prove whether a 
 - The service guide adds context at the point of comparison without another hero or marketing block. Its practical questions follow providers’ own descriptions: [CAD/CAM Services](https://www.cadcam.org/2d-cad-services/raster-to-vector), [Praxis Drawings](https://drawings.3dpraxisstudio.com/services/pdf-to-cad-conversion/) and [Morava Modern](https://moravamodern.com/outsourcing/pdf-to-cad). Advice is summarized, not copied.
 - Public access to an image is not an open license. Project photographs/drawing samples are linked in their original context rather than republished; external official marks have documented provenance and a text fallback.
 - Remove false affordances: no saved collection requested, no GitHub submission, no unconfirmed contact address. These removals make the directory smaller and more coherent rather than merely more decorative.
+
+## Neutral, less-rounded refinement — 29 October 2026
+Primary pages read and their live layouts inspected with the cloud browser:
+- [Thomasnet](https://www.thomasnet.com/): supplier search is the clear entry point; navy/blue is a familiar functional industrial-directory palette. Its large rounded hero was **not** copied because the user explicitly wants fewer rounded surfaces.
+- [DirectIndustry](https://www.directindustry.com/): broad taxonomy, recognizable company/product identity and neutral information surfaces support comparison. Its orange brand accent and marketing blocks were not copied.
+- [TraceParts](https://www.traceparts.com/en): CAD search, category navigation and manufacturer identity remain central. Its teal palette and pill controls were not copied.
+
+The references are examples, not proof of a universal industry color. The exact `#005a9c` accent is our accessible conventional-blue choice, not claimed as an extracted brand color. Applied: pure-white base, graphite text, compact checkbox labels, underlined tag links, flat result entries and 0–2px radii. The published CADalog baseline at [GitHub Pages](https://grand-code40.github.io/CADalog/) was inspected before changes.
