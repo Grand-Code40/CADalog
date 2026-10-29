@@ -99,7 +99,7 @@ button { cursor: pointer; }
 .about-detail dd strong { font-size: 13px; font-weight: 600; }
 .about-detail dd span { color: var(--subtle); font-size: 12px; line-height: 1.75; }
 
-.contribute { padding-inline: 12px; background: #e9eeeb; border-top: 1px solid #d1dad6; border-bottom: 1px solid #d1dad6; }
+.contribute { padding: 16px; background: #e9eeeb; border-top: 1px solid #d1dad6; border-bottom: 1px solid #d1dad6; }
 .contribute-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; padding-top: 48px; padding-bottom: 50px; }
 .contribute h2 { margin: 0 0 8px; font-weight: 500; font-size: 28px; letter-spacing: -.02em; }
 .contribute p { margin: 0; max-width: 540px; color: var(--subtle); font-size: 13px; line-height: 1.7; }
