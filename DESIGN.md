@@ -1,38 +1,36 @@
 # CADalog — interface rules
 
-## Direction and use
-A practical service directory, primarily in Russian, with an explicit English switch. The user needs to compare providers, inspect source material and make contact. The directory is the main interface, not a product concealed below a landing page. Editorial means careful selection and readable information, not newspaper decoration.
+## Direction
+Operate mode: a useful, approachable service directory, not a SaaS landing page. Cards are grounded in real company identities and comparable facts. Preserve the twelve entries and the direct path from searching to an official source. No decorative project mockups, fabricated ratings, huge hero, glow, gradients or entrance choreography.
 
-The redesign removes the oversized hero, arbitrary row numbering, duplicate profile-arrow links, decorative logo dot, hidden mobile navigation, large marketing sections and unnecessary submission modal. It does not substitute serif/beige magazine styling for a generic SaaS template.
-
-## Typography and color
-- `Golos Text` 400/500/600/700, with Helvetica/Arial fallbacks. It supports the site's Cyrillic and Latin text. The existing Libre Franklin family was replaced for Russian coverage.
-- Background `#f9faf9`; form surfaces `#ffffff`.
-- Main text `#1e272a`; supporting text `#586569`.
-- Dividers `#d5ddda`; field boundaries `#87928d`.
-- Action color `#923b2b`; active/darker action `#762e21`; saved state `#f3e9e5`.
-- Text contrast against used surfaces: supporting text at least 5.77:1; primary CTA 7.28:1. Field boundaries against white: 3.22:1. These are calculated token pairs, not a full accessibility certification.
-- One sans-serif family, controlled hierarchy. Desktop introduction 36px, mobile 30–32px. Company names 18–19px, explanatory text 13–16px. No ornamental display face, eyebrow labels or uppercase body copy.
+## Color and type
+- Canvas `#f5f7f6`; surfaces `#ffffff`.
+- Main ink `#24332f`; supporting ink `#596963`.
+- Dividers `#d5dfd9`; control boundaries `#81928a`.
+- Functional green-slate accent `#365e50`; active/darker `#244639`; selected `#e3ede7`; hover `#edf2ee`.
+- Selection background `#cbded2`; caret and 3px focus rings use the accent.
+- The UI contains no orange/terracotta accent. Official logos retain their original colors rather than being recolored to match.
+- Golos Text 400/500/600/700, Helvetica/Arial fallback, for Cyrillic and Latin. Headline 36px desktop, 30–32px mobile; company name 19px; summary 14px. Fixed rem/px hierarchy, no display serif or technical-monospace costume.
+- Calculated token contrasts: primary ink/canvas 12.28:1; supporting ink/canvas 5.38:1 and white 5.79:1; white/accent 7.31:1; selected text/surface 8.72:1; control/white 3.28:1. These token checks are not full WCAG conformance.
 
 ## Layout
-Maximum content width 1180px, 40px desktop outer gutters; 24px on intermediate widths and 16px on phones. The navigation wraps to a second row at 620px to avoid an intermediate-width collision between the Russian links, wordmark and language switch. Compact introductory heading and explanatory paragraph form two columns on desktop, one on small screens. Search and refinements lead directly into company rows.
+1180px maximum content width, 40px desktop / 24px tablet / 16px phone outer margins. Compact two-column introduction; search and service controls directly precede visible multi-select tags. Result count/reset and native sort share a wrapping toolbar.
 
-Desktop rows compare company/summary/formats, all services, discipline and a save control. Mobile rows keep the name/description, services, discipline and formats rather than hiding comparison data. Below 460px, save becomes a 44px bookmark control with an accessible label and a pressed state. No fabricated company imagery, diagrams, ratings or testimonials.
+Cards use three columns above 1100px, two through tablet, one at 620px and below. A real logo band leads into name, description, clickable tags and complete service/format facts. Source and profile actions are separated by a fine rule. 9px card corners; no nested content cards. Card hover changes only the border and a subtle offset shadow; no moving/scaling content.
 
-Profiles contain a modest heading, description, source, direct website link, capability facts, an evidence notice and related companies. Source content is not silently promoted to an independently verified claim.
+Three real site icons sit alongside company-name text. Seven official logos stand alone. Global CAD Services and SurveysMaps use plain actual names, not invented logos. Logo failures reveal the same name. Praxis has a dark band to support its original light logo. See SOURCES.md for provenance.
 
-## Interaction
-- Russian is the default HTML language and content. `?lang=en` selects English. Changing language preserves profile, filters and saved-view state in the URL.
-- English company names and factual source records remain in `data.js`. Russian descriptions and interface strings live in `locales.js`. Search includes both source text and translations.
-- Filters use canonical data values; visible labels are localized. Query/filter/sort/saved-view state is reflected in the URL. Profiles carry it back to the directory.
-- All services are shown, not the first two only. Saved companies work on the directory and profile, use the existing storage key, and remain browser-local.
-- Empty saved collection, no matching saved companies, and ordinary no-results states have different explanations.
-- Storage failures are disclosed. Corrupt/unknown saved data is ignored safely. Save feedback uses a polite live region.
-- The suggestion form is a native inline disclosure. It validates in the current language, opens a prefilled GitHub issue and never implies that an entry was submitted locally.
-- Visible 3px focus outline; primary buttons and compact controls are at least 44px high. No hover-only action or entrance animation. Native selects and text fields retain their behavior.
+Header navigation wraps below 380px rather than disappearing. Profile has a modest identity panel and readable text/facts columns, stacking on narrow screens. The service guide uses native details/summary disclosures; footer has no placeholder contact link.
 
-## Validation status
-Node pure-logic and locale tests, syntax checks, HTML structure and token-pair contrast calculations were run locally. Browser rendering, keyboard interaction, reflow and screen-reader checks remain pending because this execution sandbox could not run Chromium or expose its local files to the browser. See `QA.md` before publication.
+## Behavior and accessibility
+- RU default; EN explicit. Search includes both languages and translated tags/formats.
+- Tags are actual native labeled checkboxes, multi-select AND. Card tags are links with a working URL; unmodified clicks filter in place and focus the corresponding checkbox. Modified clicks keep native new-tab behavior.
+- Input, checkbox-label, sort and main actions are at least 44px high. Compact inline tag links are at least 28px high. Keyboard focus is visible, no hover-only content, polite result count, useful empty/reset state.
+- Native search/select/disclosure behavior retained. No saved state, localStorage, account, GitHub submission or false success feedback.
+- Source links open a new tab, use `noopener noreferrer`; logos have descriptive alt text, lazy decoding and `referrerpolicy="no-referrer"`. Fallback text is the company name, not a false portfolio image.
+- Reduced motion removes the brief hover transitions. No scroll-triggered animations.
 
-## Impeccable
-The repository's Impeccable 4.8.0 SKILL, new-work, operate and craft-floor references were read. Its launcher/binary and independent reviewer were not run. The documented context-loading fallback was used; this is not an Impeccable automated audit pass.
+## Impeccable and verification
+Read installed Impeccable 4.8.0 SKILL and new-work/operate/craft-floor references, plus existing PRODUCT/DESIGN context. The local snapshot contains no launcher/binary, detector or finish-reviewer definition, so direct-reading fallback was used. No automated Impeccable pass or independent reviewer verdict is claimed.
+
+Syntax, 14 pure-logic/locale tests, HTML references and contrast calculations pass. Official asset loading was checked separately in the cloud browser. Final-site browser rendering and screenshots remain blocked by the execution environment; see QA.md.

@@ -14,8 +14,16 @@ Read 29 October 2026. These sources inform choices; they do not prove whether a 
 7. [r/webdesign — So many websites look like this now](https://www.reddit.com/r/webdesign/comments/1u1579w/so_many_websites_look_like_this_now/). Participants discuss both generic hero/card layouts and the newer cream/serif “newspaper” template. Some find these patterns attractive; others find the repetition alienating. Applied: do not solve “AI look” by switching blindly to beige, italic serif or a faux magazine. The actual directory data determines the structure.
 
 ## Resulting design decisions
-- Use one Cyrillic-capable sans family, a restrained cool-white canvas and small functional accent. No decorative imagery needed for this task.
-- Give the service comparison more space than the introduction; show every service and file-format field already in the dataset.
+- Use one Cyrillic-capable sans family, a restrained cool-white canvas and small functional accent. Real official company marks now identify entries; no fake project imagery or ornamental illustrations.
+- Give the actual directory more space than the introduction. Cards combine genuine visual identity with every service and file-format field; visible tags support meaningful exploration.
 - Do not use made-up reviews, ratings, metrics or portfolios as visual filler.
 - Use Russian by default, including errors, empty states and source summaries. Keep the English alternative explicit and complete.
 - Test edge cases rather than relying on a polished screenshot. The local checks are documented separately from the outstanding browser QA.
+
+
+## Card and tag refinement — 29 October 2026
+- Impeccable’s Operate guidance favors familiar controls and precision over decoration. Applied: native checkbox tags with AND filtering, compact stable cards, no moving hover effects or entrance sequences.
+- Visual interest is earned by original company marks, clear typography, useful tags and source actions. Logos are identity markers, not proof of project quality. Seven logos and three site icons were checked against their official origins; URLs and limitations are in `SOURCES.md`.
+- The service guide adds context at the point of comparison without another hero or marketing block. Its practical questions follow providers’ own descriptions: [CAD/CAM Services](https://www.cadcam.org/2d-cad-services/raster-to-vector), [Praxis Drawings](https://drawings.3dpraxisstudio.com/services/pdf-to-cad-conversion/) and [Morava Modern](https://moravamodern.com/outsourcing/pdf-to-cad). Advice is summarized, not copied.
+- Public access to an image is not an open license. Project photographs/drawing samples are linked in their original context rather than republished; external official marks have documented provenance and a text fallback.
+- Remove false affordances: no saved collection requested, no GitHub submission, no unconfirmed contact address. These removals make the directory smaller and more coherent rather than merely more decorative.
