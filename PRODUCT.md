@@ -19,3 +19,9 @@ Search, service and discipline filters, alphabetical sort, saved entries stored 
 
 ## Boundaries and evidence
 No invented ratings, rankings, testimonials, project photographs or claims that a provider was independently evaluated. No simulated UI, unearned social proof or misleading submission success. The site must remain useful with JavaScript only for interactive controls and preserve keyboard/accessibility support.
+
+
+## October 2026 redesign additions
+Russian is the primary language. `?lang=en` selects the English interface; the language switch preserves the current profile and directory state. Names and original English provider records remain unchanged in `data.js`; Russian descriptions are maintained in `locales.js`.
+
+Saved entries now work on profiles as well as results. Directory filters are URL-backed so profile navigation preserves context. The suggestion form is inline rather than modal and still only prepares a GitHub issue. No additional claims of verification or provider quality were introduced.

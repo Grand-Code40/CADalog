@@ -1,88 +1,98 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f9faf9">
-  <meta name="description" content="CADalog is an independent directory of specialists who convert drawings, PDFs, scans, and sketches into editable CAD files.">
-  <meta property="og:title" content="CADalog — Directory of CAD conversion specialists">
-  <meta property="og:description" content="A practical index of people and companies who turn existing drawings into working CAD files.">
+  <meta name="description" content="Найдите исполнителя для перевода бумажных чертежей, сканов, эскизов и PDF в CAD. Сравните услуги и свяжитесь с компаниями напрямую.">
+  <meta property="og:title" content="CADalog — оцифровка чертежей и перевод в CAD">
+  <meta property="og:description" content="Независимый каталог исполнителей: сравните услуги, сохраните компании и проверьте первоисточники.">
   <meta property="og:type" content="website">
-  <title>CADalog — Directory of CAD conversion specialists</title>
+  <title>CADalog — оцифровка чертежей и перевод в CAD</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./styles.css">
   <script defer src="./data.js"></script>
+  <script defer src="./directory.js"></script>
+  <script defer src="./locales.js"></script>
   <script defer src="./app.js"></script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
+  <a class="skip-link" href="#main"><span data-i18n="skip">Перейти к содержимому</span></a>
   <header class="site-header">
-    <div class="site-header-inner shell">
-      <a href="./" class="wordmark" aria-label="CADalog home">CAD<span>alog</span><i aria-hidden="true"></i></a>
-      <span class="header-caption">A DIRECTORY OF DRAWING CONVERSION SERVICES</span>
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="./#directory">Directory</a>
-        <a href="./#about">About the index</a>
-        <button type="button" data-open-submit>Suggest a company <span aria-hidden="true">↗</span></button>
+    <div class="shell header-inner">
+      <a class="wordmark" href="./" aria-label="CADalog — главная" data-i18n-aria="home">CAD<span>alog</span></a>
+      <nav aria-label="Основная навигация" data-i18n-aria="navigation">
+        <a href="./#directory" data-directory-link><span data-i18n="navDirectory">Каталог</span></a>
+        <a href="./#about"><span data-i18n="navAbout">О каталоге</span></a>
+        <a href="./#suggest" data-suggest-link><span data-i18n="navSuggest">Добавить компанию</span></a>
       </nav>
-      <button class="menu-toggle" id="mobile-menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+      <a id="language-switch" class="language-switch" href="./?lang=en" lang="en" hreflang="en" aria-label="Switch to English">EN</a>
     </div>
-    <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
-      <a href="./#directory">Directory</a>
-      <a href="./#about">About the index</a>
-      <button type="button" data-open-submit>Suggest a company ↗</button>
-    </nav>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <div id="home-view">
-      <section class="masthead shell" aria-labelledby="page-title">
-        <h1 id="page-title">The directory of <span>CAD conversion specialists.</span></h1>
-        <div class="masthead-bottom">
-          <p>Find companies that redraw paper drawings, scans, sketches and PDFs as editable CAD files. Compare their published services and contact providers directly.</p>
-          <a href="#directory" class="masthead-link">Explore the directory <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2v15m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="1.5"/></svg></a>
-        </div>
+      <section class="intro shell" aria-labelledby="page-title">
+        <h1 id="page-title" data-i18n="heading">Оцифровка чертежей и перевод в CAD</h1>
+        <p><span data-i18n="intro">Найдите исполнителя, который переведёт бумажные чертежи, сканы, эскизы или PDF в редактируемые CAD-файлы. Сравните услуги и свяжитесь с компаниями напрямую.</span></p>
       </section>
 
-      <section id="directory" class="directory shell" aria-labelledby="directory-heading">
-        <div class="directory-title-row">
-          <div>
-            <h2 id="directory-heading">The directory</h2>
-            <p>Browse independent service providers and read what they offer.</p>
-          </div>
-        </div>
-        <form class="filter-form" id="filters" role="search" onsubmit="return false;" aria-label="Find CAD specialists">
-          <label class="filter-search"><span class="filter-label">Search the index</span><span class="input-shell"><svg viewBox="0 0 20 20" width="19" height="19" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 5 5" stroke="currentColor" stroke-width="1.5"/></svg><input type="search" id="search-input" placeholder="Company, service or file format" autocomplete="off"></span></label>
-          <label class="filter-select"><span class="filter-label">Service</span><select id="service-select"><option value="">All services</option><option>Raster to vector</option><option>PDF to CAD</option><option>Paper &amp; sketch</option><option>Drawing digitization</option></select></label>
-          <label class="filter-select"><span class="filter-label">Discipline</span><select id="focus-select"><option value="">All disciplines</option><option>Architecture</option><option>Engineering</option><option>Survey &amp; civil</option><option>Multi-disciplinary</option></select></label>
-          <label class="filter-select filter-sort"><span class="filter-label">Order</span><select id="sort-select"><option value="name">A to Z</option><option value="reverse">Z to A</option></select></label>
+      <section class="directory shell" id="directory" aria-labelledby="directory-title">
+        <h2 id="directory-title"><span data-i18n="findCompany">Найти компанию</span></h2>
+        <form id="filters" class="filter-form" role="search" aria-label="Поиск исполнителя перевода чертежей в CAD" data-i18n-aria="searchAria">
+          <label class="search-field" for="search-input"><span><span data-i18n="search">Поиск</span></span><span class="search-control"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input id="search-input" name="q" type="search" placeholder="Компания, услуга или формат" data-i18n-placeholder="searchPlaceholder" autocomplete="off"></span></label>
+          <label for="service-select"><span><span data-i18n="service">Услуга</span></span><select id="service-select" name="service"><option value="" data-i18n="allServices">Все услуги</option><option value="Raster to vector" data-label="Raster to vector">Растр в вектор</option><option value="PDF to CAD" data-label="PDF to CAD">PDF в CAD</option><option value="Paper &amp; sketch" data-label="Paper &amp; sketch">Бумага и эскизы</option><option value="Drawing digitization" data-label="Drawing digitization">Оцифровка чертежей</option></select></label>
+          <label for="focus-select"><span><span data-i18n="discipline">Специализация</span></span><select id="focus-select" name="discipline"><option value="" data-i18n="allDisciplines">Все направления</option><option value="Architecture" data-label="Architecture">Архитектура</option><option value="Engineering" data-label="Engineering">Инженерия</option><option value="Survey &amp; civil" data-label="Survey &amp; civil">Геодезия и инфраструктура</option><option value="Multi-disciplinary" data-label="Multi-disciplinary">Разные направления</option></select></label>
         </form>
         <div class="directory-toolbar">
-          <span class="result-count" id="result-count" aria-live="polite">12 companies</span>
-          <div class="directory-actions"><button id="saved-toggle" type="button" aria-pressed="false">Saved <span id="saved-count">0</span></button><button id="clear-filters" type="button" hidden>Reset filters <span aria-hidden="true">×</span></button></div>
+          <div class="view-controls" aria-label="Список компаний" data-i18n-aria="collection"><button id="all-toggle" type="button" aria-pressed="true"><span data-i18n="allCompanies">Все компании</span></button><button id="saved-toggle" type="button" aria-pressed="false"><span data-i18n="savedTab">Избранное</span> <span id="saved-count">0</span></button></div>
+          <label class="sort-control" for="sort-select"><span data-i18n="sort">Порядок</span> <select id="sort-select"><option value="name" data-i18n="sortAsc">А — Я</option><option value="reverse" data-i18n="sortDesc">Я — А</option></select></label>
         </div>
-        <div class="listing-head" aria-hidden="true"><span>No.</span><span>Company</span><span>Services</span><span>Discipline</span><span></span></div>
+        <div class="results-summary"><p id="result-count" role="status" aria-live="polite" aria-atomic="true"><span data-i18n="initialCount">12 компаний</span></p><button id="clear-filters" type="button" hidden><span data-i18n="clearFilters">Сбросить фильтры</span></button></div>
+        <p id="saved-note" class="saved-note" hidden><span data-i18n="savedNote">Избранное хранится в этом браузере. Регистрация не нужна.</span></p>
+        <p id="storage-warning" class="storage-warning" role="status" hidden><span data-i18n="storageWarning">Браузер блокирует хранилище. Избранное сохранится только до ухода с этой страницы.</span></p>
+        <div class="listing-head" aria-hidden="true"><span><span data-i18n="companyHeading">Компания / форматы файлов</span></span><span><span data-i18n="services">Услуги</span></span><span><span data-i18n="discipline">Специализация</span></span><span></span></div>
         <div id="results" class="listing-list"></div>
-        <div class="empty-state" id="empty-state" hidden><h3>No matching companies.</h3><p>Try a different keyword or use fewer filters.</p><button id="empty-reset" type="button">Clear filters</button></div>
-        <p class="directory-note">This directory summarizes publicly available information from providers’ websites. Listings are not endorsements, ratings or recommendations.</p>
+        <div id="empty-state" class="empty-state" hidden><h3 id="empty-title"><span data-i18n="noMatches">Компании не найдены</span></h3><p id="empty-description"><span data-i18n="noMatchesHint">Попробуйте другой запрос или уберите один из фильтров.</span></p><button id="empty-reset" type="button" class="button-secondary"><span data-i18n="clearFilters">Сбросить фильтры</span></button></div>
+        <p class="directory-note"><span data-i18n="directoryNote">Описания составлены по сайтам компаний, а не по результатам независимой проверки.</span> <a href="#about"><span data-i18n="howItWorks">Как устроен каталог</span></a></p>
       </section>
 
       <section class="about shell" id="about" aria-labelledby="about-heading">
-        <div class="about-lead"><h2 id="about-heading">A useful place to start.</h2><p>Finding someone to redraw a technical document should not mean searching through dozens of unrelated engineering firms. CADalog collects providers who expressly offer conversion and digitization services, with a link to the original source.</p></div>
-        <div class="about-detail"><h3>How the index works</h3><dl><div><dt>Scope</dt><dd><strong>Relevant work</strong><span>We list providers whose published services mention drawing conversion, manual redraws or digitization.</span></dd></div><div><dt>Source</dt><dd><strong>Original sources</strong><span>Each profile links to the provider’s own service page, so you can verify the details.</span></dd></div><div><dt>Policy</dt><dd><strong>No artificial rankings</strong><span>No paid position, fabricated reviews or unverified claims of quality.</span></dd></div></dl></div>
+        <div>
+          <h2 id="about-heading"><span data-i18n="about">О каталоге</span></h2>
+          <p><span data-i18n="aboutBody">CADalog собирает исполнителей, которые занимаются оцифровкой и переводом чертежей в CAD. В каждой карточке — описание услуг и ссылка на первоисточник.</span></p>
+          <p><span data-i18n="aboutLimits">Наличие в каталоге не является рекомендацией. Мы не проверяли качество, доступность услуг и цены. Здесь нет рейтингов и платных позиций.</span></p>
+        </div>
+        <div>
+          <h2><span data-i18n="quoteHeading">Что подготовить для расчёта стоимости</span></h2>
+          <ul class="quote-checklist"><li><span data-i18n="quote1">Подготовьте пример чертежа и укажите количество листов.</span></li><li><span data-i18n="quote2">Укажите нужный CAD-формат, единицы измерения и требования к слоям.</span></li><li><span data-i18n="quote3">Уточните, как исполнитель работает с неясными размерами и правками.</span></li></ul>
+          <p><span data-i18n="quotePrivacy">Согласуйте условия с исполнителем, прежде чем передавать конфиденциальные чертежи.</span></p>
+        </div>
       </section>
 
-      <section class="contribute" aria-labelledby="contribute-heading"><div class="shell contribute-inner"><div><h2 id="contribute-heading">Missing a specialist?</h2><p>Help make this a more useful index. Suggest a business, studio or independent professional working with CAD conversion.</p></div><button type="button" data-open-submit>Suggest a company <span aria-hidden="true">↗</span></button></div></section>
+      <section class="suggest-section shell" id="suggest" aria-labelledby="suggest-heading">
+        <div class="suggest-intro"><h2 id="suggest-heading"><span data-i18n="suggestHeading">Знаете компанию, которой здесь нет?</span></h2><p><span data-i18n="suggestIntro">Предложите исполнителя или сообщите об ошибке. Форма подготовит обращение в GitHub; для отправки потребуется аккаунт.</span></p></div>
+        <details id="suggest-details">
+          <summary><span data-i18n="navSuggest">Добавить компанию</span></summary>
+          <form id="submit-form" class="suggest-form" novalidate>
+            <label for="company-name"><span data-i18n="companyName">Название компании</span> <span class="required-note"><span data-i18n="required">(обязательно)</span></span><input id="company-name" name="name" type="text" required maxlength="120" autocomplete="organization" aria-describedby="name-error"><span id="name-error" class="field-error" hidden></span></label>
+            <label for="company-website"><span data-i18n="website">Сайт</span> <span class="required-note"><span data-i18n="required">(обязательно)</span></span><input id="company-website" name="website" type="url" required maxlength="250" placeholder="https://example.com" autocomplete="url" aria-describedby="website-error"><span id="website-error" class="field-error" hidden></span></label>
+            <label for="company-notes"><span data-i18n="notesLabel">Услуги или исправления</span> <span class="required-note"><span data-i18n="optional">(необязательно)</span></span><textarea id="company-notes" name="notes" rows="3" maxlength="700"></textarea></label>
+            <p class="form-note"><span data-i18n="formNote">Перед отправкой вы сможете проверить обращение в GitHub. Сама форма ничего не отправляет.</span></p>
+            <button class="button-primary" type="submit"><span data-i18n="continueGithub">Продолжить в GitHub</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"></path></svg></button>
+          </form>
+        </details>
+      </section>
     </div>
 
-    <section class="profile-view shell" id="profile-view" hidden aria-labelledby="profile-title"><a class="back-link" href="./#directory"><span aria-hidden="true">←</span> All companies</a><div id="profile-content"></div></section>
+    <section class="profile-view shell" id="profile-view" hidden aria-labelledby="profile-title"><a class="back-link" href="./#directory" data-directory-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"></path></svg> <span data-i18n="back">К списку компаний</span></a><div id="profile-content"></div></section>
+
+    <noscript><section class="shell no-script"><h2><span data-i18n="noScriptHeading">Перейти на сайты компаний</span></h2><p><span data-i18n="noScriptBody">Для поиска, избранного и карточек нужен JavaScript. Сайты исполнителей доступны по прямым ссылкам:</span></p><ul><li><a href="https://www.cadcam.org/">CAD/CAM Services</a></li><li><a href="https://www.convert2cad.com/">Convert2CAD</a></li><li><a href="https://www.designpresentation.com/">Design Presentation</a></li><li><a href="https://globalcadservices.com/">Global CAD Services</a></li><li><a href="https://www.gsourcedata.com/">Gsource Technologies</a></li><li><a href="https://moravamodern.com/">Morava Modern</a></li><li><a href="https://www.powerkh.com/">Powerkh</a></li><li><a href="https://drawings.3dpraxisstudio.com/">Praxis Drawings</a></li><li><a href="https://rastertechllc.com/">RasterTech</a></li><li><a href="https://surveysmaps.com/">SurveysMaps</a></li><li><a href="https://truetechcad.com/">TrueTechCAD</a></li><li><a href="https://www.urcadservices.com/">UR CAD Services</a></li></ul><p><a href="https://github.com/Grand-Code40/CADalog/issues/new"><span data-i18n="noScriptSuggest">Предложить компанию в GitHub</span></a></p></section></noscript>
   </main>
-
-  <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-wordmark" href="./">CADalog</a><p>Independent directory of CAD conversion services.</p></div><div class="footer-end"><a href="./#directory">Directory</a><a href="./#about">About</a><button data-open-submit type="button">Suggest a listing</button><span>© <span id="footer-year">2026</span> CADalog</span></div></div></footer>
-
-  <dialog id="submit-dialog" class="submit-dialog" aria-labelledby="submit-title"><form id="submit-form" method="dialog"><div class="dialog-top"><h2 id="submit-title">Suggest a company</h2><button class="dialog-close" type="button" data-close-submit aria-label="Close dialog">×</button></div><p>Know a firm that converts scanned or paper drawings into editable CAD files? Send us their website for review.</p><label>Company name<input name="name" type="text" required maxlength="120" placeholder="Company or studio"></label><label>Website<input name="website" type="url" required maxlength="250" placeholder="https://example.com"></label><label>What services do they offer?<textarea name="notes" rows="3" maxlength="700" placeholder="Optional context"></textarea></label><p class="dialog-note">This form creates a pre-filled issue on GitHub. A free GitHub account is required to submit it.</p><button type="submit" class="dialog-submit">Continue to GitHub <span aria-hidden="true">↗</span></button></form></dialog>
+  <footer class="site-footer shell"><p>CADalog <span><span data-i18n="footerText">Независимый каталог услуг по переводу чертежей в CAD.</span></span></p><a href="https://github.com/Grand-Code40/CADalog"><span data-i18n="projectGithub">Проект на GitHub</span></a></footer>
+  <div id="save-status" class="sr-only" role="status" aria-live="polite"></div>
 </body>
 </html>

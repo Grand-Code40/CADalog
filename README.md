@@ -1,37 +1,45 @@
 # CADalog
 
-A concise, independent directory of businesses converting paper drawings, scanned images, PDFs and sketches into editable CAD files.
+Независимый каталог компаний, которые переводят бумажные чертежи, сканы, эскизы и PDF в редактируемые CAD-файлы.
 
-## Design and product
+Русский — основной язык. Переключатель **EN** открывает английскую версию с сохранением профиля и фильтров.
 
-The site uses a restrained, content-first editorial direction inspired by print trade directories and architect practice indices, not a SaaS landing page. No generated illustration or fabricated provider imagery is used. Read `PRODUCT.md` for product facts and `DESIGN.md` for visual rules. The official [Impeccable](https://github.com/pbakaus/impeccable) design skill is installed at `.agents/skills/impeccable/` for follow-up work.
+## Возможности
+- Поиск на русском и английском, фильтры по услугам и специализации, сортировка.
+- Все услуги и форматы видны в списке; 12 исходных компаний сохранены.
+- Избранное в браузере, доступное из списка и карточки компании.
+- Профили со ссылками на сайт и исходную страницу услуги.
+- Предложение компании через предварительно заполненное обращение в GitHub. Нужен аккаунт GitHub; форма не отправляет обращение сама.
+- Адаптивная вёрстка, клавиатурные состояния, fallback со ссылками без JavaScript.
 
-## Features
-
-- Search over provider name, description, services, formats and specialization.
-- Filter by service and discipline, sort alphabetically.
-- Save entries locally; view only saved entries.
-- Dedicated profile view linked to provider's original public source and company website.
-- New listing suggestions via prefilled GitHub Issues (GitHub sign-in required).
-- Keyboard-friendly controls, meaningful focus states, mobile layout, reduced-motion support.
-- No framework, cookies, analytics or paid services.
-
-## Run locally
-
-Serve the folder with any local static server:
-
+## Запуск
 ```bash
 python -m http.server 8000
 ```
+Откройте `http://localhost:8000/`. Никаких зависимостей или сборщика нет. Для английской версии: `?lang=en`, для профиля: `?company=powerkh`.
 
-Open `http://localhost:8000/`. All pages are rendered from `index.html`, `styles.css`, `app.js` and `data.js`. Profiles use `?company=<slug>` for compatibility with free static hosting.
+## Проверки
+```bash
+node --check app.js
+node --check directory.js
+node --check locales.js
+node --check data.js
+node --test tests/*.test.cjs
+```
+В `QA.md` перечислены выполненные и оставшиеся проверки. Браузерный QA нельзя считать пройденным на основании Node-тестов.
 
-## Publish for free with GitHub Pages
+## Файлы
+- `index.html`, `styles.css` — страница и стили.
+- `app.js` — интерфейс и события.
+- `directory.js` — логика поиска, фильтров, URL и валидации.
+- `data.js` — исходные записи, названия и ссылки компаний.
+- `locales.js` — интерфейс RU/EN и русские описания компаний. При добавлении записи в `data.js` добавьте её `slug`, `line` и `detail` в `ru.companies`. Пока перевод не добавлен, сайт безопасно показывает исходное английское описание. Новые переводимые услуги/форматы добавляйте в `labels` обоих языков; поиск учитывает все переводы.
+- `PRODUCT.md`, `DESIGN.md` — продукт и дизайн.
+- `RESEARCH.md` — первичные источники и обсуждение, повлиявшие на решения.
 
-In repository **Settings → Pages → Build and deployment → Source**, choose **GitHub Actions**. The `Publish CADalog` workflow is already present at `.github/workflows/deploy.yml` and publishes from `main`. This setting is a one-time manual action if Pages is not yet enabled. URL after a successful deploy: `https://grand-code40.github.io/CADalog/`.
+Записи составлены по страницам самих исполнителей. Каталог не является рейтингом или независимой проверкой качества услуг.
 
-## Edit or add companies
+## Публикация
+Сайт совместим со статическим хостингом и путём `/CADalog/`. Публиковать нужно семь файлов сайта: `index.html`, `styles.css`, `app.js`, `directory.js`, `locales.js`, `data.js`, `favicon.svg`.
 
-All records live in `data.js`. A record has a unique `slug`, display `name`, `focus`, `services`, `formats`, short `line`, longer `detail`, public `website`, and primary published `source`. Some preexisting fields `art` and `tone` are retained only for data compatibility and **no longer rendered**.
-
-Entries are starting points based on provider service pages, not independent audits or recommendations. Verify external links and facts before treating the directory as an authoritative resource. The suggestion form opens a GitHub issue and does not pretend to collect submissions server-side.
+Сохраняйте рабочую конфигурацию публикации реального репозитория. Эта локальная копия не является полным Git-клоном; не заменяйте из неё всё дерево удалённого репозитория. В этой работе ничего не опубликовано и не отправлено в GitHub.
