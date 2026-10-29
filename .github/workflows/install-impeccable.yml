@@ -1,0 +1,36 @@
+name: Install Impeccable design skill
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/install-impeccable.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out CADalog
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch official Impeccable skill
+        run: |
+          git clone --depth 1 https://github.com/pbakaus/impeccable.git /tmp/impeccable-official
+          mkdir -p .agents/skills
+          cp -R /tmp/impeccable-official/.agents/skills/impeccable .agents/skills/impeccable
+          test -f .agents/skills/impeccable/SKILL.md
+          test -f .agents/skills/impeccable/reference/craft-floor.md
+          echo "Official Impeccable skill copied from pbakaus/impeccable."
+      - name: Commit project-local Impeccable installation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .agents/skills/impeccable
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: install official Impeccable skill for CADalog"
+            git push origin HEAD:main
+          fi
