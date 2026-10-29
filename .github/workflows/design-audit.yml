@@ -1,0 +1,36 @@
+name: Impeccable design inspection
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'styles.css'
+      - 'app.js'
+      - 'DESIGN.md'
+      - 'PRODUCT.md'
+      - '.github/workflows/design-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out CADalog
+        uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: |
+          node --check app.js
+          node --check data.js
+      - name: Load Impeccable project context
+        run: |
+          sh .agents/skills/impeccable/scripts/impeccable context --target index.html || echo 'Context launcher not available; PRODUCT.md and DESIGN.md remain in the repo.'
+      - name: Impeccable frontend detector
+        run: |
+          sh .agents/skills/impeccable/scripts/impeccable detect --json index.html styles.css app.js > /tmp/impeccable-report.json 2>&1 || true
+          echo '--- Impeccable report ---'
+          head -c 30000 /tmp/impeccable-report.json
+          echo
